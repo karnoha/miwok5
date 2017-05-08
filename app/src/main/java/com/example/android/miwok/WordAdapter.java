@@ -20,5 +20,5 @@ public class WordAdapter extends ArrayAdapter<Word>{
         return super.getView(position, convertView, parent);
     }
 
-    public WordAdapter (Activity context, ArrayList)
+//    public WordAdapter (Activity context, ArrayList)
 }
