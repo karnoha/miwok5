@@ -19,7 +19,7 @@ public class Word {
     }
 
     // Get the Miwok translation of the word
-    public String getmMiwokTranslation() {
+    public String getMiwokTranslation() {
         return mMiwokTranslation;
     }
 }
