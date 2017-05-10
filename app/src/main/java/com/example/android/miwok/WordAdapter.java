@@ -3,6 +3,7 @@ package com.example.android.miwok;
 import android.app.Activity;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import static com.example.android.miwok.R.id.default_text_view;
+import static com.example.android.miwok.R.id.list;
 import static com.example.android.miwok.R.id.miwok_text_view;
 
 /**
@@ -21,6 +23,8 @@ import static com.example.android.miwok.R.id.miwok_text_view;
  */
 
 public class WordAdapter extends ArrayAdapter<Word> {
+
+    private int mColorResourceId;
 
     //    Provides a view for an AdapterView.
     @NonNull
@@ -50,8 +54,13 @@ public class WordAdapter extends ArrayAdapter<Word> {
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.image);
         if (current_Word.hasImage()) {
             imageView.setImageResource(current_Word.getImageResourceId());
+        } else {
+            imageView.setVisibility(View.GONE);
         }
-        else {imageView.setVisibility(View.GONE);}
+
+        View textContainer = listItemView.findViewById(R.id.text_container);
+        int color = ContextCompat.getColor(getContext(), mColorResourceId);
+        textContainer.setBackgroundColor(color);
 
         //returns the whole list item layout
         return listItemView;
@@ -59,7 +68,9 @@ public class WordAdapter extends ArrayAdapter<Word> {
 
 
     //    Constructor for the WordAdapter class.
-    public WordAdapter(Activity context, ArrayList<Word> Word) {
+    public WordAdapter(Activity context, ArrayList<Word> Word, int backgroundColor) {
         super(context, 0, Word);
+        mColorResourceId = backgroundColor;
+
     }
 }
