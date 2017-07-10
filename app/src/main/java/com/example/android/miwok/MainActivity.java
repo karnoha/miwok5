@@ -15,13 +15,10 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
-import android.widget.TextView;
-
-import static com.example.android.miwok.R.id.family;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,83 +29,23 @@ public class MainActivity extends AppCompatActivity {
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
 
+        // Find the view pager that will allow the user to swipe between fragments
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
 
-        /////////////////// onclick listeners
+        // Create an adapter that knows which fragment should be shown on each page
+        CategoryAdapter adapter = new CategoryAdapter(this, getSupportFragmentManager());
 
-        // Find the View that shows the numbers category
-        TextView numbers = (TextView) findViewById(R.id.numbers);
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
 
-        // Set a click listener on that View
-        numbers.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the numbers View is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent numbersIntent = new Intent(MainActivity.this, NumbersActivity.class);
-                startActivity(numbersIntent);
-            }
-        });
+        // Find the tab layout that shows the tabs
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
 
-        // Find the View that shows the family category
-        TextView family = (TextView) findViewById(R.id.family);
-
-        // Set a click listener on that View
-        family.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the family View is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent familyIntent = new Intent(MainActivity.this, FamilyActivity.class);
-                startActivity(familyIntent);
-            }
-        });
-
-        // Find the View that shows the colors category
-        TextView colors = (TextView) findViewById(R.id.colors);
-
-        // Set a click listener on that View
-        colors.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the colors View is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent colorsIntent = new Intent(MainActivity.this, ColorsActivity.class);
-                startActivity(colorsIntent);
-            }
-        });
-
-        // Find the View that shows the phrases category
-        TextView phrases = (TextView) findViewById(R.id.phrases);
-
-        // Set a click listener on that View
-        phrases.setOnClickListener(new View.OnClickListener() {
-            // The code in this method will be executed when the phrases View is clicked on.
-            @Override
-            public void onClick(View view) {
-                Intent phrasesIntent = new Intent(MainActivity.this, PhrasesActivity.class);
-                startActivity(phrasesIntent);
-            }
-        });
-
-
+        // Connect the tab layout with the view pager. This will
+        //   1. Update the tab layout when the view pager is swiped
+        //   2. Update the view pager when a tab is selected
+        //   3. Set the tab layout's tab names with the view pager's adapter's titles
+        //      by calling onPageTitle()
+        tabLayout.setupWithViewPager(viewPager);
     }
-
-
-//    public void openNumbersList(View view) {
-//        Intent i = new Intent(this, NumbersActivity.class);
-//        startActivity(i);
-//    }
-//
-//    public void openFamilyList(View view) {
-//        Intent i = new Intent(this, FamilyActivity.class);
-//        startActivity(i);
-//    }
-//
-//    public void openPhrasesList(View view) {
-//        Intent i = new Intent(this, PhrasesActivity.class);
-//        startActivity(i);
-//    }
-//
-//    public void openColorsList(View view) {
-//        Intent i = new Intent(this, ColorsActivity.class);
-//        startActivity(i);
-//    }
-
 }
